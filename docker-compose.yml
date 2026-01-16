@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: hrm_postgres
+    environment:
+      POSTGRES_DB: HRMSystem
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - hrm_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d HRMSystem"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # HRM System Application
+  hrmsystem:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hrm_app
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=HRMSystem;Username=postgres;Password=postgres"
+      Jwt__Key: "YourSuperSecretKeyHere_MakeItLongAndSecureForProduction123456789"
+      Jwt__Issuer: "HRMSystem"
+      Jwt__Audience: "HRMSystemUsers"
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - hrm_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  hrm_network:
+    driver: bridge

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HRM System - Quản lý nhân viên</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="dashboard">
+      <header class="header">
+        <h1>HRM System - Quản lý nhân viên</h1>
+        <div class="user-info">
+          <span id="userEmail"></span>
+          <button id="logoutBtn" class="btn btn-secondary">Đăng xuất</button>
+        </div>
+      </header>
+
+      <div class="main-content">
+        <div class="actions">
+          <button id="addEmployeeBtn" class="btn btn-primary">
+            Thêm nhân viên
+          </button>
+          <button id="refreshBtn" class="btn btn-secondary">Làm mới</button>
+        </div>
+
+        <div class="employee-table-container">
+          <table class="employee-table" id="employeeTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Họ tên</th>
+                <th>Email</th>
+                <th>Số điện thoại</th>
+                <th>Chức vụ</th>
+                <th>Lương</th>
+                <th>Ngày vào làm</th>
+                <th>Trạng thái</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="employeeTableBody">
+              <tr>
+                <td colspan="9" class="loading">Đang tải dữ liệu...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal thêm/sửa nhân viên -->
+    <div id="employeeModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modalTitle">Thêm nhân viên</h3>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form id="employeeForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">Họ:</label>
+                <input type="text" id="firstName" name="firstName" required />
+              </div>
+              <div class="form-group">
+                <label for="lastName">Tên:</label>
+                <input type="text" id="lastName" name="lastName" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" />
+            </div>
+            <div class="form-group">
+              <label for="phone">Số điện thoại:</label>
+              <input type="tel" id="phone" name="phone" />
+            </div>
+            <div class="form-group">
+              <label for="position">Chức vụ:</label>
+              <input type="text" id="position" name="position" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="salary">Lương:</label>
+                <input type="number" id="salary" name="salary" step="0.01" />
+              </div>
+              <div class="form-group">
+                <label for="hireDate">Ngày vào làm:</label>
+                <input type="date" id="hireDate" name="hireDate" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="isActive" name="isActive" checked />
+                Đang hoạt động
+              </label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button id="saveBtn" class="btn btn-primary">Lưu</button>
+          <button id="cancelBtn" class="btn btn-secondary">Hủy</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
