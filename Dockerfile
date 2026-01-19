@@ -6,6 +6,11 @@ WORKDIR /src
 COPY ["HRMSystem/HRMSystem.csproj", "HRMSystem/"]
 RUN dotnet restore "HRMSystem/HRMSystem.csproj"
 
+
+
+
+
+
 # Copy everything else and build
 COPY . .
 WORKDIR "/src/HRMSystem"
