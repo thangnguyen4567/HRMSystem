@@ -15,7 +15,8 @@ pipeline {
                     sh """
                     ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} "
                         cd ${APP_DIR} &&
-                        df -h /
+                        df -h / &&
+                        mkdir test
                     "
                     """
                 }
